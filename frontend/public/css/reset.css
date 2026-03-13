@@ -1,0 +1,346 @@
+/* ============================================================
+   RESET.CSS — Base universal da Soberana Autopeças
+   Ordem de responsabilidade:
+   1. Zera estilos padrão do browser
+   2. Define variáveis globais de design
+   3. Cria utilitários reutilizáveis
+   4. Define tipografia base
+   5. Define botões padrão
+   6. Define animações globais
+   ============================================================ */
+
+
+/* ── 1. RESET BASE ─────────────────────────────────────────────
+   O símbolo * significa "todo elemento HTML da página".
+   ::before e ::after são pseudo-elementos — conteúdo extra
+   que o CSS pode inserir antes/depois de qualquer elemento.
+   ─────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+
+    /* Faz padding e border serem contados DENTRO da largura.
+       Sem isso: width:200px + padding:20px = 240px (estoura)
+       Com isso: width:200px + padding:20px = 200px (correto) */
+    box-sizing: border-box;
+
+    /* Remove o espaço externo padrão de todos os elementos.
+       Ex: <h1> tem margin-top padrão no Chrome — isso zera. */
+    margin: 0;
+
+    /* Remove o espaço interno padrão de todos os elementos.
+       Ex: <ul> tem padding-left padrão — isso zera. */
+    padding: 0;
+}
+
+html {
+
+    /* Define o tamanho base da fonte para 16px.
+       Isso permite usar "rem" para medidas relativas:
+       1rem = 16px, 1.5rem = 24px, 0.875rem = 14px */
+    font-size: 16px;
+
+    /* Faz links âncora (#secao) rolarem suavemente
+       ao invés de pular diretamente para o destino */
+    scroll-behavior: smooth;
+
+    /* Impede que o iOS aumente automaticamente o tamanho
+       da fonte ao rotacionar o celular para paisagem */
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+
+    /* Garante que o body ocupe pelo menos 100% da altura
+       da janela. "vh" = viewport height (altura da tela).
+       Evita que o footer fique no meio da página quando
+       há pouco conteúdo. */
+    min-height: 100vh;
+
+    /* Espaçamento entre linhas de texto — 1.6 = 160% do
+       tamanho da fonte. Melhora muito a legibilidade. */
+    line-height: 1.6;
+
+    /* Suaviza as fontes no Mac/Chrome — remove o serrilhado
+       nas bordas das letras */
+    -webkit-font-smoothing: antialiased;
+
+    /* Mesmo efeito para Firefox no Mac */
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Imagens, vídeos, SVGs e canvas:
+   "display: block" remove o espaço fantasma que aparece
+   embaixo de imagens inline (herança do comportamento
+   de texto — imagens ficavam alinhadas à linha de base).
+   "max-width: 100%" impede que imagens vazem do container. */
+img, video, svg, canvas {
+    display: block;
+    max-width: 100%;
+}
+
+/* Inputs, botões e selects herdam a fonte do body.
+   Por padrão, esses elementos usam a fonte do sistema
+   operacional — feio e inconsistente entre browsers. */
+input, button, textarea, select {
+    font: inherit;
+}
+
+/* Textos e títulos: se uma palavra for muito longa
+   (como uma URL), ela quebra para a próxima linha
+   ao invés de vazar para fora do container. */
+p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+}
+
+/* Remove bullets (•) de listas não ordenadas
+   e números de listas ordenadas.
+   Estilizamos listas manualmente quando precisamos. */
+ul, ol {
+    list-style: none;
+}
+
+/* Remove sublinhado e cor azul padrão de links.
+   "color: inherit" faz o link herdar a cor do elemento pai. */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Remove o espaço entre células de tabela.
+   Sem isso, tabelas têm bordas duplas e espaços estranhos. */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+/* ── 2. VARIÁVEIS DE DESIGN ────────────────────────────────────
+   :root é o elemento raiz do HTML (equivale ao <html>).
+   Variáveis CSS começam com -- e são acessadas com var().
+   Definir tudo aqui centraliza o design — para mudar
+   a cor primária do site inteiro, basta mudar uma linha.
+   ─────────────────────────────────────────────────────────── */
+:root {
+
+    /* ── Paleta de cores ──
+       Seguimos uma hierarquia: escuro → médio → primário → claro → brilho
+       Cada tom tem um papel específico no design. */
+    --azul-escuro:   #0a1628; /* fundo de seções escuras, header */
+    --azul-medio:    #0d2444; /* fundo de sidebar, elementos secundários */
+    --azul-primario: #1565C0; /* cor principal — botões, destaques */
+    --azul-claro:    #1E88E5; /* hover de botões, variações */
+    --azul-brilho:   #42A5F5; /* detalhes, labels, indicadores */
+    --branco:        #FFFFFF; /* textos sobre fundos escuros */
+    --branco-suave:  #F0F4FF; /* fundo de seções claras */
+    --cinza-claro:   #e8edf5; /* bordas, fundos de cards */
+    --cinza-medio:   #9aa8bb; /* textos secundários, placeholders */
+    --cinza-escuro:  #4a5568; /* textos de suporte */
+    --destaque:      #FF6B00; /* laranja — CTAs de alta urgência */
+    --perigo:        #e53e3e; /* vermelho — deletar, erros */
+    --sucesso:       #38a169; /* verde — confirmações, sucesso */
+
+    /* ── Fontes ──
+       Duas fontes com papéis distintos:
+       Barlow Condensed: impacto visual em títulos (condensada e forte)
+       Inter: clareza e legibilidade em textos longos */
+    --fonte-titulo: 'Barlow Condensed', sans-serif;
+    --fonte-corpo:  'Inter', sans-serif;
+
+    /* ── Espaçamentos ──
+       Sistema de escala baseado em múltiplos de 4px.
+       Usar variáveis garante ritmo visual consistente. */
+    --espaco-xs:  4px;  /* micro espaço — gap entre ícone e texto */
+    --espaco-sm:  8px;  /* pequeno — padding de badges */
+    --espaco-md:  16px; /* médio — padding padrão */
+    --espaco-lg:  24px; /* grande — gap entre cards */
+    --espaco-xl:  40px; /* extra — padding de seções */
+    --espaco-2xl: 64px; /* duplo extra — espaço entre seções */
+    --espaco-3xl: 96px; /* máximo — padding do hero */
+
+    /* ── Bordas arredondadas ──
+       Valores crescentes para diferentes contextos:
+       sm = botões pequenos, xl = cards grandes */
+    --raio-sm: 4px;
+    --raio-md: 8px;
+    --raio-lg: 12px;
+    --raio-xl: 20px;
+
+    /* ── Sombras ──
+       Três níveis de profundidade + sombra colorida especial */
+    --sombra-sm:   0 1px 3px rgba(0,0,0,0.2);          /* leve — cards em repouso */
+    --sombra-md:   0 4px 16px rgba(0,0,0,0.25);         /* média — cards em hover */
+    --sombra-lg:   0 8px 32px rgba(0,0,0,0.3);          /* forte — modais */
+    --sombra-azul: 0 4px 20px rgba(21,101,192,0.4);     /* colorida — botões ativos */
+
+    /* ── Transições ──
+       Duração padrão das animações CSS.
+       "ease" = começa rápido, desacelera no final (natural). */
+    --transicao:       0.25s ease; /* rápida — hovers, clicks */
+    --transicao-lenta: 0.4s ease;  /* suave — menus, modais */
+
+    /* ── Layout ── */
+    --largura-max:   1200px; /* largura máxima do conteúdo — evita linhas longas demais */
+    --altura-header: 70px;   /* altura fixa do header — usada em vários lugares */
+}
+
+
+/* ── 3. UTILITÁRIOS GLOBAIS ────────────────────────────────────
+   Classes reutilizáveis que aparecem em todo o projeto.
+   ─────────────────────────────────────────────────────────── */
+
+/* .container centraliza e limita o conteúdo.
+   Usado em todas as seções: <div class="container">conteúdo</div>
+   "margin: 0 auto" centraliza horizontalmente quando há largura definida. */
+.container {
+    width: 100%;                      /* ocupa toda a largura disponível */
+    max-width: var(--largura-max);    /* mas nunca passa de 1200px */
+    margin: 0 auto;                   /* centraliza na página */
+    padding: 0 var(--espaco-lg);      /* respiro lateral de 24px */
+}
+
+/* .sr-only = "screen reader only" — elemento visualmente oculto
+   mas lido por leitores de tela (acessibilidade).
+   Técnica padrão da indústria — NÃO use display:none para isso,
+   pois display:none esconde de leitores de tela também. */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);  /* recorta o elemento para 0x0 visualmente */
+    white-space: nowrap;
+    border: 0;
+}
+
+
+/* ── 4. TIPOGRAFIA BASE ────────────────────────────────────────
+   Estilos globais de texto aplicados ao body e headings.
+   ─────────────────────────────────────────────────────────── */
+body {
+    font-family: var(--fonte-corpo); /* Inter para todo texto padrão */
+    color: var(--azul-escuro);       /* texto escuro sobre fundo claro */
+    background: var(--branco);       /* fundo branco padrão */
+}
+
+/* Todos os títulos recebem a fonte de impacto.
+   "letter-spacing: 0.02em" = espaço entre letras relativo ao tamanho —
+   em = unidade relativa ao font-size atual. */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--fonte-titulo);
+    font-weight: 700;
+    line-height: 1.2;        /* títulos grandes ficam mais compactos */
+    letter-spacing: 0.02em;
+}
+
+
+/* ── 5. BOTÕES PADRÃO ──────────────────────────────────────────
+   Sistema de botões com variantes por cor/estilo.
+   .btn = classe base (estrutura)
+   .btn-primario, .btn-destaque etc = modificadores (aparência)
+   Padrão BEM: Block__Element--Modifier
+   ─────────────────────────────────────────────────────────── */
+.btn {
+
+    /* inline-flex: comportamento inline (flui com o texto)
+       mas com poderes de flexbox internamente —
+       permite centralizar ícone + texto facilmente */
+    display: inline-flex;
+    align-items: center;        /* centraliza verticalmente */
+    gap: var(--espaco-sm);      /* espaço entre ícone e texto */
+
+    padding: 12px 28px;
+    border-radius: var(--raio-md);
+    font-family: var(--fonte-titulo);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;     /* letras mais espaçadas em botões */
+    text-transform: uppercase;  /* texto em maiúsculas */
+    cursor: pointer;            /* mãozinha ao passar o mouse */
+
+    /* border: 2px solid transparent → reserva espaço para borda
+       sem mostrá-la. Evita o "pulo" de layout quando
+       a borda aparece no hover. */
+    border: 2px solid transparent;
+
+    /* "all" anima TODAS as propriedades que mudarem */
+    transition: all var(--transicao);
+}
+
+/* Botão azul primário — ação principal */
+.btn-primario {
+    background: var(--azul-primario);
+    color: var(--branco);
+    border-color: var(--azul-primario);
+}
+.btn-primario:hover {
+    background: var(--azul-claro);
+    border-color: var(--azul-claro);
+    transform: translateY(-2px);    /* sobe 2px — sensação de "lift" */
+    box-shadow: var(--sombra-azul); /* sombra azul aparece no hover */
+}
+
+/* Botão laranja — ação urgente/destaque */
+.btn-destaque {
+    background: var(--destaque);
+    color: var(--branco);
+    border-color: var(--destaque);
+}
+.btn-destaque:hover {
+    filter: brightness(1.1); /* clareia 10% — mais simples que trocar cor */
+    transform: translateY(-2px);
+}
+
+/* Botão transparente com borda branca — usado sobre fundos escuros */
+.btn-outline {
+    background: transparent;
+    color: var(--branco);
+    border-color: var(--branco);
+}
+.btn-outline:hover {
+    background: var(--branco);      /* preenche de branco no hover */
+    color: var(--azul-primario);    /* texto vira azul */
+}
+
+/* Botão vermelho — ações destrutivas (deletar, remover) */
+.btn-perigo {
+    background: var(--perigo);
+    color: var(--branco);
+    border-color: var(--perigo);
+}
+
+
+/* ── 6. ANIMAÇÕES GLOBAIS ──────────────────────────────────────
+   @keyframes define o "roteiro" da animação:
+   "from" = estado inicial, "to" = estado final.
+   ─────────────────────────────────────────────────────────── */
+
+/* Sobe de baixo enquanto aparece — usada em cards e seções */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;                /* invisível */
+        transform: translateY(30px); /* 30px abaixo da posição final */
+    }
+    to {
+        opacity: 1;                /* visível */
+        transform: translateY(0);  /* posição normal */
+    }
+}
+
+/* Aparece sem movimento — usada em overlays e modais */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Rotação infinita — usada no spinner de carregamento */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Classe utilitária: aplica a animação de entrada.
+   "both" = mantém o estado inicial antes de começar
+   e o estado final depois de terminar. */
+.animar-entrada {
+    animation: fadeInUp 0.6s ease both;
+}

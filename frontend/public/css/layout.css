@@ -1,0 +1,271 @@
+/* ============================================================
+   LAYOUT.CSS — Componentes estruturais globais
+   Carregado em todas as páginas após o reset.css
+   Contém: Header, utilitários de layout, responsividade
+   ============================================================ */
+
+
+/* ── HEADER ────────────────────────────────────────────────────
+   O header é fixo no topo — acompanha o scroll.
+   Começa transparente e ganha fundo ao rolar (via JavaScript).
+   ─────────────────────────────────────────────────────────── */
+.header {
+    position: fixed;    /* sai do fluxo normal e fica fixo na janela */
+    top: 0;             /* colado no topo */
+    left: 0;            /* começa da esquerda */
+    right: 0;           /* vai até a direita — largura total */
+    height: var(--altura-header); /* 70px definido nas variáveis */
+    z-index: 1000;      /* fica na frente de todo conteúdo da página */
+
+    /* Fundo escuro com 85% de opacidade desde o início.
+       Antes era transparent — sumia no fundo azul escuro do hero.
+       0.85 mantém o efeito leve sem o header desaparecer. */
+    background: rgba(10, 22, 40, 0.85);
+
+    /* Anima as mudanças de background e sombra suavemente */
+    transition: background var(--transicao), box-shadow var(--transicao);
+    
+}
+
+/* Classe adicionada pelo JavaScript quando window.scrollY > 20.
+   Aumenta a opacidade e adiciona o blur ao rolar. */
+.header.scrolled {
+
+    /* Quase sólido ao rolar — mais presença e legibilidade */
+    background: rgba(10, 22, 40, 0.97);
+
+    /* Desfoca o conteúdo atrás do header.
+       Só funciona com background semi-transparente. */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px); /* prefixo obrigatório no Safari */
+
+    /* Linha sutil na base para separar do conteúdo */
+    box-shadow: 0 1px 0 rgba(255,255,255,0.08);
+}
+
+/* .header__inner usa flexbox para distribuir os 3 blocos:
+   [logo]    [navegação]    [botão CTA]
+   justify-content: space-between empurra logo para esquerda
+   e CTA para direita, com nav centralizado automaticamente */
+.header__inner {
+    height: 100%;               /* ocupa toda a altura do header */
+    display: flex;              /* ativa o flexbox */
+    align-items: center;        /* centraliza verticalmente */
+    justify-content: space-between; /* distribui o espaço entre os filhos */
+    gap: var(--espaco-lg);      /* espaço mínimo entre logo, nav e CTA */
+}
+
+
+/* ── LOGO ──────────────────────────────────────────────────────
+   O logo é um link (<a>) com ícone + texto em coluna.
+   ─────────────────────────────────────────────────────────── */
+.header__logo {
+    display: flex;          /* ícone e texto lado a lado */
+    align-items: center;    /* alinha verticalmente ao centro */
+    gap: var(--espaco-sm);  /* 8px entre ícone e texto */
+    text-decoration: none;  /* remove sublinhado de link */
+    color: inherit;         /* herda a cor do pai (branco) */
+
+    /* flex-shrink: 0 impede que o logo encolha quando
+       a navegação não tem espaço suficiente */
+    flex-shrink: 0;
+}
+
+/* Quadrado azul que contém o ícone ⚙️ */
+.header__logo-icon {
+    width: 38px;
+    height: 38px;
+    background: var(--azul-primario);
+    border-radius: var(--raio-sm);  /* levemente arredondado */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: transform var(--transicao); /* anima a rotação no hover */
+}
+
+/* Micro-interação: ícone gira -15° ao passar o mouse no logo inteiro.
+   O seletor .header__logo:hover .header__logo-icon significa:
+   "quando o .header__logo estiver em hover, estilize o .header__logo-icon" */
+.header__logo:hover .header__logo-icon {
+    transform: rotate(-15deg);
+}
+
+/* Coluna com nome em cima e subtítulo embaixo */
+.header__logo-text {
+    display: flex;
+    flex-direction: column; /* empilha os spans verticalmente */
+    line-height: 1.1;       /* compacta o espaço entre nome e subtítulo */
+}
+
+/* "SOBERANA" — fonte de impacto, maiúscula, espaçada */
+.header__logo-nome {
+    font-family: var(--fonte-titulo);
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--branco);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+/* "AUTOPEÇAS" — menor, azul brilhante, muito espaçado */
+.header__logo-sub {
+    font-size: 0.62rem;
+    color: var(--azul-brilho);
+    letter-spacing: 0.18em; /* espaçamento generoso em texto pequeno */
+    text-transform: uppercase;
+}
+
+
+/* ── NAVEGAÇÃO ─────────────────────────────────────────────────
+   Links em linha com indicador visual da página ativa.
+   ─────────────────────────────────────────────────────────── */
+.header__nav {
+    display: flex;
+    align-items: center;
+    gap: 4px; /* espaço pequeno entre links — o padding deles já dá respiro */
+}
+
+.header__nav a {
+    padding: 8px 14px;
+    border-radius: var(--raio-sm);
+    color: rgba(255,255,255,0.75); /* branco com 75% opacidade — discreto */
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: all var(--transicao);
+    text-decoration: none;
+
+    /* position: relative permite posicionar o ::after
+       (indicador de página ativa) em relação a este link */
+    position: relative;
+}
+
+/* Hover: fica branco total com fundo sutil */
+.header__nav a:hover {
+    color: var(--branco);
+    background: rgba(255,255,255,0.08);
+}
+
+/* Indicador da página ativa: linha azul embaixo do link.
+   ::after é um pseudo-elemento — conteúdo CSS puro, sem HTML extra.
+   Só aparece no link que tem aria-current="page". */
+.header__nav a[aria-current="page"]::after {
+    content: '';          /* pseudo-elementos precisam de content, mesmo vazio */
+    position: absolute;   /* posicionado em relação ao <a> pai (position:relative) */
+    bottom: 4px;          /* 4px acima da base do link */
+    left: 50%;            /* começa no centro */
+    transform: translateX(-50%); /* recua metade da própria largura = centralizado */
+    width: 16px;
+    height: 2px;
+    background: var(--azul-brilho);
+    border-radius: 2px;
+}
+
+
+/* ── CTA DO HEADER ─────────────────────────────────────────────
+   Botão de ação primária sempre visível no header.
+   ─────────────────────────────────────────────────────────── */
+.header__cta {
+    flex-shrink: 0;     /* nunca encolhe — sempre visível */
+    font-size: 0.85rem; /* levemente menor que o .btn padrão */
+    padding: 9px 20px;  /* mais compacto para caber no header */
+}
+
+
+/* ── BOTÃO HAMBÚRGUER ──────────────────────────────────────────
+   Visível apenas no mobile. Três linhas que viram X ao abrir.
+   ─────────────────────────────────────────────────────────── */
+.header__menu-btn {
+    display: none;          /* ESCONDIDO no desktop */
+    flex-direction: column;
+    gap: 5px;               /* espaço entre as 3 linhas */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: var(--raio-sm);
+    transition: background var(--transicao);
+}
+
+.header__menu-btn:hover {
+    background: rgba(255,255,255,0.08); /* fundo sutil no hover */
+}
+
+/* Cada uma das 3 linhas do ícone hambúrguer */
+.header__menu-btn span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--branco);
+    border-radius: 2px;
+
+    /* Cada span anima independentemente para formar o X */
+    transition: transform var(--transicao), opacity var(--transicao);
+}
+
+/* Animação do hambúrguer → X quando aria-expanded="true":
+   Linha 1: desce 7px e gira 45° (diagonal /)
+   Linha 2: desaparece (opacity 0)
+   Linha 3: sobe 7px e gira -45° (diagonal \)
+   Resultado: as linhas 1 e 3 formam um X */
+.header__menu-btn[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.header__menu-btn[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+.header__menu-btn[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ── RESPONSIVIDADE ────────────────────────────────────────────
+   @media query: aplica estilos SOMENTE quando a condição
+   for verdadeira. max-width: 768px = telas até 768px de largura
+   (celulares e tablets pequenos).
+   ─────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+    /* Mostra o botão hambúrguer no mobile */
+    .header__menu-btn {
+        display: flex; /* sobrescreve o display:none do desktop */
+    }
+
+    /* Esconde o botão CTA no mobile — aparecerá no hero */
+    .header__cta {
+        display: none;
+    }
+
+    /* No mobile, a nav vira um menu dropdown.
+       Começa fora da tela (translateY(-110%)) e
+       desce para a posição normal quando .aberto é adicionado. */
+    .header__nav {
+        position: fixed;            /* sai do fluxo, fica fixo na janela */
+        top: var(--altura-header);  /* começa logo abaixo do header */
+        left: 0;
+        right: 0;
+        background: var(--azul-escuro);
+        flex-direction: column;     /* links em coluna */
+        align-items: stretch;       /* links ocupam largura total */
+        padding: var(--espaco-md);
+        border-bottom: 2px solid var(--azul-primario);
+
+        /* Estado fechado: escondido acima da viewport */
+        transform: translateY(-150%);
+        transition: transform var(--transicao-lenta); /* animação suave */
+    }
+
+    /* Estado aberto: JavaScript adiciona .aberto ao clicar no hambúrguer */
+    .header__nav.aberto {
+        transform: translateY(0); /* volta para a posição normal */
+    }
+
+    /* Links maiores no mobile — área de toque mais confortável */
+    .header__nav a {
+        padding: 14px var(--espaco-md);
+        border-radius: var(--raio-md);
+        font-size: 1rem;
+    }
+
+    
+}

@@ -1,0 +1,1544 @@
+<!doctype html>
+<!-- lang="pt-BR": define o idioma para SEO, leitores de tela
+     e correção ortográfica automática do browser -->
+<html lang="pt-BR">
+  <head>
+    <!-- charset="UTF-8": codificação que suporta acentos e caracteres
+       especiais. Deve ser a primeira tag do <head>. -->
+    <meta charset="UTF-8" />
+
+    <!-- viewport: essencial para o site funcionar em celulares.
+       width=device-width: largura = largura da tela do dispositivo
+       initial-scale=1.0: sem zoom inicial -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- description: aparece no Google embaixo do título.
+       Não afeta ranking mas afeta o clique. Máx 160 caracteres. -->
+    <meta
+      name="description"
+      content="Soberana Autopeças — Motores completos revisados, cabeçotes usinados e kits de retífica. Qualidade garantida para sua oficina."
+    />
+
+    <!-- Open Graph: controla como o link aparece ao compartilhar
+       no WhatsApp, Instagram, LinkedIn.
+       Sem essas tags, as redes sociais chutam um texto aleatório. -->
+    <meta
+      property="og:title"
+      content="Soberana Autopeças — Especialistas em Motores"
+    />
+    <meta
+      property="og:description"
+      content="Catálogo completo de motores revisados, cabeçotes e kits de retífica."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+
+    <!-- Content Security Policy: lista de permissões de segurança.
+       Define exatamente o que esta página tem permissão de carregar.
+       default-src 'self'     → por padrão só recursos do próprio servidor
+       script-src 'self'      → scripts só do servidor (bloqueia injeções)
+       style-src ... googleapis → permite CSS do Google Fonts
+       font-src ... gstatic   → permite baixar os arquivos de fonte
+       img-src 'self' data:   → imagens locais e base64
+       connect-src 'self'     → fetch/XHR só para o próprio servidor -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+             script-src 'self';
+             style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com;
+             font-src 'self' https://fonts.gstatic.com data:;
+             img-src 'self' data: blob: https://*.google.com https://*.googleapis.com https://*.gstatic.com;
+             connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com;
+             frame-src https://maps.google.com https://www.google.com;"
+    />
+
+    <!-- title: aparece na aba do browser e como título no Google.
+       Máx 60 caracteres. Formato: [palavra-chave] — [empresa] -->
+    <title>Soberana Autopeças — Motores e Peças com Garantia</title>
+
+    <!-- preconnect: avisa o browser para conectar ao servidor do Google
+       Fonts ANTES de precisar — reduz o tempo de carregamento das fontes.
+       crossorigin: necessário para fontes carregadas de outro domínio. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Carrega duas fontes com os pesos que usamos:
+       Barlow Condensed 600,700,800 → títulos
+       Inter 400,500,600            → textos
+       display=swap → mostra o texto com fonte do sistema enquanto
+       a fonte customizada carrega (evita texto invisível) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Ordem importa: reset zera tudo → layout define estrutura
+       → landing.css aplica estilos específicos desta página.
+       Se invertesse, o reset poderia sobrescrever estilos do layout. -->
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/landing.css" />
+  </head>
+  <body>
+    <!-- <header> é uma tag semântica do HTML5 — tem significado.
+       Diz ao Google e leitores de tela que este é o cabeçalho.
+       Sempre prefira tags semânticas a <div id="header">:
+       <header>, <nav>, <main>, <section>, <article>, <aside>, <footer> -->
+    <header class="header" id="header">
+      <!-- .container: limita largura a 1200px e centraliza.
+         .header__inner: flexbox que distribui logo, nav e CTA em linha. -->
+      <div class="container header__inner">
+        <!-- Logo: sempre um link para / (página inicial).
+           aria-label: descreve o link para leitores de tela,
+           já que o conteúdo é um ícone + texto visual. -->
+        <a
+          href="/"
+          class="header__logo"
+          aria-label="Soberana Autopeças - Página inicial"
+        >
+          <!-- aria-hidden="true": oculta o ícone decorativo de leitores
+             de tela — o aria-label do <a> pai já descreve tudo. -->
+          <div class="header__logo-icon" aria-hidden="true">⚙️</div>
+
+          <div class="header__logo-text">
+            <!-- Dois spans separados permitem estilos diferentes:
+               nome em branco grande, subtítulo em azul pequeno -->
+            <span class="header__logo-nome">Soberana</span>
+            <span class="header__logo-sub">Autopeças</span>
+          </div>
+        </a>
+
+        <!-- <nav> é semântico — identifica bloco de navegação.
+           aria-label="Menu principal" diferencia de outros <nav>
+           que possam existir na página (ex: breadcrumb, footer nav). -->
+        <nav class="header__nav" id="nav" aria-label="Menu principal">
+          <!-- aria-current="page": marca o link da página atual.
+             O CSS usa esse atributo para mostrar o indicador visual.
+             O JavaScript atualiza isso com base na URL atual. -->
+          <a href="/" aria-current="page">Início</a>
+          <a href="/catalogo">Catálogo</a>
+          <a href="#localizacao">Contato</a>
+          <a href="/sobre">Sobre nós</a>
+          <a href="/trabalhe-conosco">Trabalhe Conosco</a>
+        </nav>
+
+        <!-- CTA principal do header: uma única ação clara.
+           Regra de landing page: uma página, uma ação principal. -->
+        <a href="/contato" class="btn btn-primario header__cta">
+          Peça um Orçamento
+        </a>
+
+        <!-- Botão hambúrguer: visível apenas no mobile (CSS: display:none no desktop).
+           aria-expanded="false": informa estado inicial (fechado) a leitores de tela.
+           aria-controls="nav": indica qual elemento este botão controla.
+           O JavaScript alterna aria-expanded entre true/false ao clicar. -->
+        <button
+          class="header__menu-btn"
+          id="menuBtn"
+          aria-label="Abrir menu de navegação"
+          aria-expanded="false"
+          aria-controls="nav"
+        >
+          <!-- Três spans vazios = três linhas do ícone hambúrguer (☰).
+             O CSS os transforma em X quando aria-expanded="true". -->
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <!-- fim .header__inner -->
+    </header>
+    <!-- fim .header -->
+
+    <!-- ═══════════════════════════════════════════════════════
+       ELEMENTO 3: HERO
+       <main> é a tag semântica para o conteúdo principal.
+       Deve existir apenas uma vez por página.
+       O header tem position:fixed e NÃO empurra o conteúdo,
+       por isso adicionamos padding-top igual à altura do header.
+  ════════════════════════════════════════════════════════ -->
+    <main>
+      <!-- .hero ocupa 100vh (altura total da tela).
+         O fundo usa múltiplos gradientes sobrepostos:
+         1. Gradiente diagonal escuro para legibilidade do texto
+         2. Grade de linhas sutis para textura industrial
+         O background-color serve de fallback se os gradientes falharem. -->
+      <section class="hero" id="inicio">
+        <!-- .container limita a largura e centraliza.
+           .hero__inner organiza o conteúdo em coluna via flexbox. -->
+        <div class="container hero__inner">
+          <!-- BADGE: pequena etiqueta acima do título.
+             Função: ancoragem de credibilidade imediata.
+             O visitante lê isso antes do título — estabelece autoridade. -->
+          <span class="hero__badge animar-entrada">
+            <!-- aria-hidden="true" no emoji: decorativo, sem valor semântico -->
+            <img src="images/gears.gif"
+                          alt="Ícone de engrenagens girando"
+                          class="hero__gears-icon">
+            Especialistas em Motores desde 2005
+          </span>
+
+          <!-- TÍTULO PRINCIPAL: o maior gatilho de conversão da página.
+             Regras do bom título de landing page:
+             1. Fala do BENEFÍCIO, não da empresa
+             2. Usa linguagem do cliente ("resistem", "rendem")
+             3. Tem uma palavra de impacto visual (caixa alta)
+             
+             clamp(min, ideal, max) → tamanho fluido:
+             nunca menor que 2.8rem, idealmente 7% da viewport,
+             nunca maior que 5.2rem. Responsivo sem media query. -->
+          <h1 class="hero__titulo animar-entrada">
+            Manutenção em dia é mais
+            <span class="hero__titulo-dinamico">
+              <span class="hero__titulo-palavra" id="palavraDinamica">conforto.</span>
+            </span>
+          </h1>
+
+          <!-- SUBTÍTULO: complementa o título com informação concreta.
+             Não repete o título — adiciona especificidade.
+             Máx ~120 caracteres para não cansar o olho. -->
+          <p class="hero__subtitulo animar-entrada">
+            Catálogo completo de motores revisados, cabeçotes usinados e kits de
+            retífica. Peças com procedência e garantia real para sua oficina e
+            frota.
+          </p>
+
+          <!-- CTAs: máximo dois botões no hero.
+             Hierarquia clara: primário (cheio) + secundário (outline).
+             O visitante sabe instantaneamente qual é a ação principal. -->
+          <div class="hero__acoes animar-entrada">
+            <!-- CTA primário: ação que queremos que o visitante tome.
+               href="/catalogo" → leva direto ao catálogo de produtos. -->
+            <a href="/catalogo" class="btn btn-primario">
+              <span aria-hidden="true">🔩</span>
+              Ver Catálogo
+            </a>
+
+            <!-- CTA secundário: alternativa para quem prefere contato direto.
+               btn-outline → fundo transparente, borda branca.
+               target="_blank" abre em nova aba (WhatsApp Web).
+               rel="noopener" → segurança: impede que a nova aba
+               acesse window.opener (vulnerabilidade de segurança). -->
+            <a
+              href="https://wa.me/552433471440"
+              class="btn btn-outline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span aria-hidden="true">💬</span>
+              Falar no WhatsApp
+            </a>
+          </div>
+          <!-- fim .hero__acoes -->
+
+          <!-- STATS: números de prova social logo na primeira dobra.
+             Função: reduz a ansiedade do visitante antes de ele rolar.
+             Regra: use números reais — visitantes percebem exageros. -->
+          <div class="hero__stats animar-entrada">
+            <!-- Cada stat tem número grande + label descritivo -->
+            <div class="hero__stat">
+              <!-- <strong> tem peso semântico: indica importância.
+                 Melhor que <span> para números de destaque. -->
+              <strong class="hero__stat-num">+2.000</strong>
+              <span class="hero__stat-label">peças em estoque</span>
+            </div>
+
+            <!-- Divisor visual entre stats -->
+            <div class="hero__stat-divisor" aria-hidden="true"></div>
+
+            <div class="hero__stat">
+              <strong class="hero__stat-num">20 anos</strong>
+              <span class="hero__stat-label">de experiência</span>
+            </div>
+
+            <div class="hero__stat-divisor" aria-hidden="true"></div>
+
+            <div class="hero__stat">
+              <strong class="hero__stat-num">6 meses</strong>
+              <span class="hero__stat-label">de garantia</span>
+            </div>
+          </div>
+          <!-- fim .hero__stats -->
+        </div>
+        <!-- fim .hero__inner -->
+      </section>
+      <!-- fim .hero -->
+
+       <!-- ═══════════════════════════════════════════════════════
+         FAIXA DE DIFERENCIAIS + CATEGORIAS PRINCIPAIS
+         Dois blocos em sequência: ícones de confiança no topo
+         e grid de categorias clicáveis abaixo.
+    ════════════════════════════════════════════════════════ -->
+    <div class="faixa-diferenciais">
+      <div class="container">
+        <ul class="faixa-diferenciais__lista" role="list">
+
+          <li class="faixa-diferenciais__item">
+            <span class="faixa-diferenciais__icone" aria-hidden="true">🏆</span>
+            <div class="faixa-diferenciais__texto">
+              <strong>Maior Portifólio</strong>
+              <span>de peças automotivas de Volta Redonda</span>
+            </div>
+          </li>
+
+          <div class="faixa-diferenciais__divisor" aria-hidden="true"></div>
+
+          <li class="faixa-diferenciais__item">
+            <span class="faixa-diferenciais__icone" aria-hidden="true">💳</span>
+            <div class="faixa-diferenciais__texto">
+              <strong>Até 10x Sem Juros</strong>
+              <span>a partir de R$100,00 por parcela</span>
+            </div>
+          </li>
+
+          <div class="faixa-diferenciais__divisor" aria-hidden="true"></div>
+
+          <li class="faixa-diferenciais__item">
+            <span class="faixa-diferenciais__icone" aria-hidden="true">🚚</span>
+            <div class="faixa-diferenciais__texto">
+              <strong>Entrega em Volta Redonda</strong>
+              <span>e região Sul Fluminense</span>
+            </div>
+          </li>
+
+          <div class="faixa-diferenciais__divisor" aria-hidden="true"></div>
+
+          <li class="faixa-diferenciais__item">
+            <span class="faixa-diferenciais__icone" aria-hidden="true">🎧</span>
+            <div class="faixa-diferenciais__texto">
+              <strong>Atendimento</strong>
+              <span>garantia de Troca e Devolução</span>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+
+    <section class="categorias" id="categorias" aria-label="Principais categorias">
+      <div class="container">
+
+        <div class="categorias__header">
+          <h2 class="categorias__titulo">Principais Categorias</h2>
+          <div class="categorias__linha" aria-hidden="true"></div>
+        </div>
+
+        <ul class="categorias__grid" role="list">
+
+          <li>
+            <a href="/catalogo?categoria=oleo-motor" class="categoria-card">
+              <div class="categoria-card__imagem">
+                <img src="images/categorias/oleo-motor.png"
+                     alt="Óleo de Motor"
+                     class="categoria-card__img">
+              </div>
+              <span class="categoria-card__nome">Óleo de Motor</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/catalogo?categoria=bateria" class="categoria-card">
+              <div class="categoria-card__imagem">
+                <img src="images/categorias/bateria.png"
+                     alt="Bateria Automotiva"
+                     class="categoria-card__img">
+              </div>
+              <span class="categoria-card__nome">Bateria Automotiva</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/catalogo?categoria=embreagem" class="categoria-card">
+              <div class="categoria-card__imagem">
+                <img src="images/categorias/embreagem.png"
+                     alt="Kit de Embreagem"
+                     class="categoria-card__img">
+              </div>
+              <span class="categoria-card__nome">Kit de Embreagem</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/catalogo?categoria=amortecedor" class="categoria-card">
+              <div class="categoria-card__imagem">
+                <img src="images/categorias/amortecedor.png"
+                     alt="Amortecedor de Suspensão"
+                     class="categoria-card__img">
+              </div>
+              <span class="categoria-card__nome">Amortecedor de Suspensão</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/catalogo?categoria=pastilha-freio" class="categoria-card">
+              <div class="categoria-card__imagem">
+                <img src="images/categorias/pastilha-freio.png"
+                     alt="Pastilha de Freio"
+                     class="categoria-card__img">
+              </div>
+              <span class="categoria-card__nome">Pastilha de Freio</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/catalogo?categoria=filtros" class="categoria-card">
+              <div class="categoria-card__imagem">
+                <img src="images/categorias/filtros.png"
+                     alt="Filtros"
+                     class="categoria-card__img">
+              </div>
+              <span class="categoria-card__nome">Filtros</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/catalogo?categoria=motor" class="categoria-card">
+              <div class="categoria-card__imagem">
+                <img src="images/categorias/motor.png"
+                     alt="Motores"
+                     class="categoria-card__img">
+              </div>
+              <span class="categoria-card__nome">Motores</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/catalogo" class="categoria-card categoria-card--mais">
+              <div class="categoria-card__imagem">
+                <span class="categoria-card__mais-icone" aria-hidden="true">＋</span>
+              </div>
+              <span class="categoria-card__nome">Ver Todos</span>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </section>
+
+      <!-- ═══════════════════════════════════════════════════════
+         ELEMENTO 4: PROVA SOCIAL
+         Faixa de credibilidade imediatamente após o hero.
+         Dois blocos: número de impacto + logos de marcas.
+         <section> com role="complementary" não é correto aqui —
+         usamos apenas section com aria-label descritivo.
+    ════════════════════════════════════════════════════════ -->
+      <section class="prova-social" aria-label="Números e marcas parceiras">
+        <div class="container">
+          <!-- BLOCO 1: número de impacto + texto de reforço.
+             Função: ancora a credibilidade com dado concreto.
+             O número grande chama atenção, o texto explica. -->
+          <div class="prova-social__numero">
+            <!-- <strong> tem peso semântico — indica dado importante.
+               O tamanho grande é definido pelo CSS. -->
+            <strong class="prova-social__num">+5.000</strong>
+
+            <!-- Pipe visual (|) separador — aria-hidden pois
+               é puramente decorativo, sem valor semântico. -->
+            <span class="prova-social__divisor" aria-hidden="true"></span>
+
+            <p class="prova-social__texto">
+              clientes atendidos<br />
+              <!-- <br> cria quebra de linha — útil para controlar
+                 onde o texto quebra em tamanhos específicos -->
+              em todo o Brasil
+            </p>
+          </div>
+          <!-- fim .prova-social__numero -->
+
+          <!-- Linha divisória entre os dois blocos.
+             aria-hidden pois é decorativa. -->
+          <div class="prova-social__linha" aria-hidden="true"></div>
+
+          <!-- BLOCO 2: logos das marcas trabalhadas.
+             Função: transferência de autoridade — o visitante
+             reconhece as marcas e associa a empresa a elas.
+             Usamos texto estilizado ao invés de imagens:
+             - Não precisa de arquivos externos
+             - Carrega instantaneamente
+             - Funciona sem internet -->
+          <div class="prova-social__marcas">
+            <!-- Label descritivo para leitores de tela -->
+            <p class="prova-social__marcas-label">
+              Peças para as principais marcas
+            </p>
+
+            <!-- Lista de marcas: <ul> semântico para lista de itens.
+               Cada <li> é uma marca. -->
+            <ul class="prova-social__lista" role="list">
+              <!-- Cada item tem um ícone decorativo + nome da marca.
+                 data-marca é um atributo customizado — útil para
+                 JavaScript futuramente (filtrar catálogo por marca). -->
+              <li class="prova-social__marca" data-marca="volkswagen">
+                <span aria-hidden="true">🔵</span>
+                Volkswagen
+              </li>
+
+              <li class="prova-social__marca" data-marca="ford">
+                <span aria-hidden="true">🔵</span>
+                Ford
+              </li>
+
+              <li class="prova-social__marca" data-marca="gm">
+                <span aria-hidden="true">🔵</span>
+                GM / Chevrolet
+              </li>
+
+              <li class="prova-social__marca" data-marca="fiat">
+                <span aria-hidden="true">🔵</span>
+                Fiat
+              </li>
+
+              <li class="prova-social__marca" data-marca="toyota">
+                <span aria-hidden="true">🔵</span>
+                Toyota
+              </li>
+
+              <li class="prova-social__marca" data-marca="honda">
+                <span aria-hidden="true">🔵</span>
+                Honda
+              </li>
+            </ul>
+            <!-- fim .prova-social__lista -->
+          </div>
+          <!-- fim .prova-social__marcas -->
+        </div>
+        <!-- fim .container -->
+      </section>
+      <!-- fim .prova-social -->
+
+       <!-- ═══════════════════════════════════════════════════════
+         PARCEIROS: Banner rotativo de marcas parceiras.
+         Cada slide tem layout editorial: texto à esquerda,
+         imagem do produto à direita, cor da marca ao fundo.
+    ════════════════════════════════════════════════════════ -->
+    <section class="parceiros" id="parceiros" aria-label="Marcas parceiras">
+
+      <div class="parceiros__faixa" id="parceirosFaixa">
+
+        <!-- SLIDE 1 — WEGA -->
+        <div class="parceiros__slide" style="--cor-marca: #2d2d2d;">
+          <div class="parceiros__conteudo">
+            <span class="parceiros__badge">Na Soberana você encontra</span>
+            <div class="parceiros__logo-texto">WEGA</div>
+            <h2 class="parceiros__titulo">Agora, filtro é WEGA</h2>
+            <p class="parceiros__subtitulo">A linha mais completa da América Latina</p>
+          </div>
+          <div class="parceiros__imagem">
+            <img src="images/parceiros/wega-filtros.png"
+                 alt="Linha de filtros WEGA"
+                 class="parceiros__img">
+          </div>
+        </div>
+
+        <!-- SLIDE 2 — SHELL HELIX -->
+        <div class="parceiros__slide" style="--cor-marca: #DD1D21;">
+          <div class="parceiros__conteudo">
+            <span class="parceiros__badge">Na Soberana você encontra</span>
+            <div class="parceiros__logo-texto" style="color: #FFCC00;">Shell Helix</div>
+            <h2 class="parceiros__titulo">A performance aprovada pela Ferrari.</h2>
+            <p class="parceiros__subtitulo">O óleo que impulsiona motores vencedores.</p>
+            <a href="/catalogo" class="parceiros__cta">Saiba mais</a>
+          </div>
+          <div class="parceiros__imagem">
+            <img src="images/parceiros/shell-helix.png"
+                 alt="Linha Shell Helix"
+                 class="parceiros__img">
+          </div>
+        </div>
+
+        <!-- SLIDE 3 — CENTRALSUL -->
+        <div class="parceiros__slide" style="--cor-marca: #8B6914;">
+          <div class="parceiros__conteudo">
+            <span class="parceiros__badge">Na Soberana você encontra</span>
+            <div class="parceiros__logo-texto">Centralsul Car Care</div>
+            <h2 class="parceiros__titulo">Aromatizantes · Limpadores · Silicones · Polidores</h2>
+            <p class="parceiros__subtitulo">Siga nas redes: @centralsuloficial</p>
+          </div>
+          <div class="parceiros__imagem">
+            <img src="images/parceiros/centralsul.png"
+                 alt="Produtos Centralsul Car Care"
+                 class="parceiros__img">
+          </div>
+        </div>
+
+        <!-- SLIDE 4 — GAUSS -->
+        <div class="parceiros__slide" style="--cor-marca: #003087;">
+          <div class="parceiros__conteudo">
+            <span class="parceiros__badge">Na Soberana você encontra</span>
+            <div class="parceiros__logo-texto">GAUSS</div>
+            <ul class="parceiros__lista">
+              <li>Bobinas de ignição</li>          
+              <li>Bicos injetores</li>
+              <li>E muito mais!</li>
+            </ul>
+            <p class="parceiros__subtitulo">Uma multinacional brasileira com um vasto portfólio.</p>
+          </div>
+          <div class="parceiros__imagem">
+            <img src="images/parceiros/gauss-pecas.png"
+                 alt="Produtos Gauss"
+                 class="parceiros__img">
+          </div>
+        </div>
+
+      </div><!-- fim .parceiros__faixa -->
+
+      <!-- Botões de navegação -->
+      <button class="parceiros__btn parceiros__btn--prev"
+              id="parceirosPrev"
+              aria-label="Parceiro anterior">‹</button>
+
+      <button class="parceiros__btn parceiros__btn--next"
+              id="parceirosNext"
+              aria-label="Próximo parceiro">›</button>
+
+      <!-- Indicadores -->
+      <div class="parceiros__indicadores" id="parceirosIndicadores"></div>
+
+    </section><!-- fim .parceiros -->
+
+      <!-- ═══════════════════════════════════════════════════════
+         ELEMENTO 5: CATÁLOGO EM DESTAQUE
+         Grid de produtos que futuramente carrega da API.
+         Por enquanto dados estáticos — o JS substituirá.
+         <section> com id permite link direto: /#catalogo
+    ════════════════════════════════════════════════════════ -->
+      <section class="catalogo" id="catalogo">
+        <div class="container">
+          <!-- CABEÇALHO DA SEÇÃO: título + link para catálogo completo.
+             Padrão usado em todas as seções: título à esquerda,
+             ação secundária à direita — cria ritmo visual consistente. -->
+          <div class="secao-header">
+            <div class="secao-header__texto">
+              <!-- Pequeno label acima do título — mesmo padrão do badge do hero.
+                 Cria consistência visual entre seções. -->
+              <span class="secao-label">Em destaque</span>
+
+              <!-- h2: hierarquia correta — há apenas um h1 na página (hero).
+                 Todas as outras seções usam h2. -->
+              <h2 class="secao-titulo">Produtos em Destaque</h2>
+
+              <!-- Subtítulo da seção: complementa sem repetir o título -->
+              <p class="secao-subtitulo">
+                Peças selecionadas com procedência garantida para sua oficina
+              </p>
+            </div>
+
+            <!-- Link secundário: alternativa para quem já sabe o que quer -->
+            <a href="/catalogo" class="catalogo__link-todos">
+              Ver catálogo completo
+              <!-- seta decorativa — aria-hidden pois é visual -->
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+          <!-- fim .secao-header -->
+
+          <!-- GRID DE PRODUTOS: container dos cards.
+             id="produtosGrid" permite que o JavaScript encontre
+             este elemento para inserir cards dinamicamente.
+             Por enquanto tem cards estáticos de exemplo. -->
+          <div class="produtos-grid" id="produtosGrid">
+            <!-- CARD 1: estrutura base de um card de produto.
+               Cada card tem: imagem/ícone, categoria, nome, preço, CTA.
+               data-id: identificador para o JavaScript buscar detalhes. -->
+            <article class="produto-card" data-id="1">
+              <!-- Área da imagem: fundo colorido com ícone enquanto
+                 não temos fotos reais. Será substituído por <img>. -->
+              <div class="produto-card__imagem">
+                <!-- Ícone grande centralizado — placeholder visual -->
+                <span class="produto-card__icone" aria-hidden="true">⚙️</span>
+
+                <!-- Badge de destaque: aparece sobre a imagem.
+                   Só mostra quando o produto tem destaque=true. -->
+                <span class="produto-card__badge">Destaque</span>
+              </div>
+
+              <!-- Conteúdo textual do card -->
+              <div class="produto-card__corpo">
+                <!-- Categoria: breadcrumb visual — ajuda o usuário
+                   a entender onde o produto se encaixa -->
+                <span class="produto-card__categoria">Motores Completos</span>
+
+                <!-- Nome do produto: h3 pois está dentro de uma section com h2 -->
+                <h3 class="produto-card__nome">Motor VW 1.0 8v Revisado</h3>
+
+                <!-- Descrição breve: máx 2 linhas — o CSS corta o resto -->
+                <p class="produto-card__descricao">
+                  Motor completo revisado com garantia. Compatível com Gol,
+                  Parati e Saveiro até 2013.
+                </p>
+
+                <!-- Rodapé do card: preço + botão de ação -->
+                <div class="produto-card__rodape">
+                  <div class="produto-card__preco-grupo">
+                    <!-- Preço principal formatado -->
+                    <strong class="produto-card__preco">R$ 2.500,00</strong>
+                    <!-- Condição de pagamento -->
+                    <span class="produto-card__parcela">ou 10x R$ 250,00</span>
+                  </div>
+
+                  <!-- CTA do card: ação primária de cada produto -->
+                  <a
+                    href="/catalogo?produto=1"
+                    class="btn btn-primario produto-card__btn"
+                  >
+                    Ver detalhes
+                  </a>
+                </div>
+                <!-- fim .produto-card__rodape -->
+              </div>
+              <!-- fim .produto-card__corpo -->
+            </article>
+            <!-- fim .produto-card -->
+
+            <!-- CARD 2 -->
+            <article class="produto-card" data-id="2">
+              <div class="produto-card__imagem">
+                <span class="produto-card__icone" aria-hidden="true">🔧</span>
+                <span class="produto-card__badge">Destaque</span>
+              </div>
+              <div class="produto-card__corpo">
+                <span class="produto-card__categoria">Cabeçotes</span>
+                <h3 class="produto-card__nome">
+                  Cabeçote Ford 1.6 Zetec Usinado
+                </h3>
+                <p class="produto-card__descricao">
+                  Cabeçote usinado e retificado. Compatível com Fiesta, Ka e
+                  EcoSport 1.6 de 2008 a 2018.
+                </p>
+                <div class="produto-card__rodape">
+                  <div class="produto-card__preco-grupo">
+                    <strong class="produto-card__preco">R$ 1.800,00</strong>
+                    <span class="produto-card__parcela">ou 10x R$ 180,00</span>
+                  </div>
+                  <a
+                    href="/catalogo?produto=2"
+                    class="btn btn-primario produto-card__btn"
+                  >
+                    Ver detalhes
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- CARD 3 -->
+            <article class="produto-card" data-id="3">
+              <div class="produto-card__imagem">
+                <span class="produto-card__icone" aria-hidden="true">🛠️</span>
+                <span class="produto-card__badge">Destaque</span>
+              </div>
+              <div class="produto-card__corpo">
+                <span class="produto-card__categoria">Kits de Retífica</span>
+                <h3 class="produto-card__nome">
+                  Kit Retífica GM 1.4 Flex Completo
+                </h3>
+                <p class="produto-card__descricao">
+                  Kit completo com anéis, bronzinas e juntas. Compatível com
+                  Corsa, Celta e Classic 1.4 flex.
+                </p>
+                <div class="produto-card__rodape">
+                  <div class="produto-card__preco-grupo">
+                    <strong class="produto-card__preco">R$ 890,00</strong>
+                    <span class="produto-card__parcela">ou 10x R$ 89,00</span>
+                  </div>
+                  <a
+                    href="/catalogo?produto=3"
+                    class="btn btn-primario produto-card__btn"
+                  >
+                    Ver detalhes
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- CARD 4 -->
+            <article class="produto-card" data-id="4">
+              <div class="produto-card__imagem">
+                <span class="produto-card__icone" aria-hidden="true">⚙️</span>
+                <span class="produto-card__badge">Destaque</span>
+              </div>
+              <div class="produto-card__corpo">
+                <span class="produto-card__categoria">Motores Completos</span>
+                <h3 class="produto-card__nome">Motor Fiat 1.0 Fire Revisado</h3>
+                <p class="produto-card__descricao">
+                  Motor revisado com procedência. Compatível com Palio, Siena e
+                  Strada 1.0 até 2015.
+                </p>
+                <div class="produto-card__rodape">
+                  <div class="produto-card__preco-grupo">
+                    <strong class="produto-card__preco">R$ 2.200,00</strong>
+                    <span class="produto-card__parcela">ou 10x R$ 220,00</span>
+                  </div>
+                  <a
+                    href="/catalogo?produto=4"
+                    class="btn btn-primario produto-card__btn"
+                  >
+                    Ver detalhes
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+          <!-- fim .produtos-grid -->
+
+          <!-- CTA final da seção: para quem quer ver mais produtos -->
+          <div class="catalogo__rodape">
+            <a href="/catalogo" class="btn btn-outline-escuro">
+              <span aria-hidden="true">🔩</span>
+              Ver todos os produtos
+            </a>
+          </div>
+        </div>
+        <!-- fim .container -->
+      </section>
+      <!-- fim .catalogo -->
+
+      <!-- ═══════════════════════════════════════════════════════
+         ELEMENTO 6: DIFERENCIAIS
+         Seção escura — alterna o ritmo visual após o catálogo claro.
+         Grid de 6 cards: cada um responde uma objeção do visitante.
+    ════════════════════════════════════════════════════════ -->
+      <section class="diferenciais" id="diferenciais">
+        <div class="container">
+          <!-- Cabeçalho centralizado — diferente do catálogo que era left-aligned.
+             Centralizar títulos em seções escuras é um padrão visual
+             que cria variedade e hierarquia entre seções. -->
+          <div class="secao-header secao-header--centro">
+            <div class="secao-header__texto">
+              <span class="secao-label secao-label--claro"
+                >Por que a Soberana?</span
+              >
+              <h2 class="secao-titulo secao-titulo--claro">
+                Diferenciais que fazem a diferença
+              </h2>
+              <p class="secao-subtitulo secao-subtitulo--claro">
+                Mais de 20 anos entregando qualidade para oficinas e frotas em
+                todo o Brasil
+              </p>
+            </div>
+          </div>
+
+          <!-- Grid de 6 diferenciais: 3 colunas no desktop, 2 no tablet, 1 no mobile.
+             <ul> semântico: lista de características da empresa. -->
+          <ul class="diferenciais-grid" role="list">
+            <!-- Cada diferencial é um <li> com ícone, título e descrição.
+               A estrutura é idêntica em todos — fácil de manter e escalar. -->
+            <li class="diferencial-card">
+              <!-- Círculo com ícone: fundo azul primário semi-transparente.
+                 role="img" + aria-label: acessibilidade para o ícone decorativo. -->
+              <div
+                class="diferencial-card__icone"
+                role="img"
+                aria-label="Garantia"
+              >
+                🛡️
+              </div>
+              <h3 class="diferencial-card__titulo">6 Meses de Garantia</h3>
+              <p class="diferencial-card__texto">
+                Todas as peças saem com garantia documentada. Problema? A gente
+                resolve sem burocracia.
+              </p>
+            </li>
+
+            <li class="diferencial-card">
+              <div
+                class="diferencial-card__icone"
+                role="img"
+                aria-label="Nota fiscal"
+              >
+                📋
+              </div>
+              <h3 class="diferencial-card__titulo">Nota Fiscal em Tudo</h3>
+              <p class="diferencial-card__texto">
+                Transparência total em cada venda. Nota fiscal e procedência
+                garantida em todas as peças.
+              </p>
+            </li>
+
+            <li class="diferencial-card">
+              <div
+                class="diferencial-card__icone"
+                role="img"
+                aria-label="Experiência"
+              >
+                🔧
+              </div>
+              <h3 class="diferencial-card__titulo">20 Anos de Experiência</h3>
+              <p class="diferencial-card__texto">
+                Duas décadas especializados em motores. Conhecemos cada detalhe
+                técnico das principais marcas.
+              </p>
+            </li>
+
+            <li class="diferencial-card">
+              <div
+                class="diferencial-card__icone"
+                role="img"
+                aria-label="Entrega"
+              >
+                🚚
+              </div>
+              <h3 class="diferencial-card__titulo">Entrega para Todo Brasil</h3>
+              <p class="diferencial-card__texto">
+                Enviamos com segurança para qualquer estado. Embalagem reforçada
+                e rastreamento em tempo real.
+              </p>
+            </li>
+
+            <li class="diferencial-card">
+              <div
+                class="diferencial-card__icone"
+                role="img"
+                aria-label="Suporte"
+              >
+                💬
+              </div>
+              <h3 class="diferencial-card__titulo">Suporte Especializado</h3>
+              <p class="diferencial-card__texto">
+                Atendimento técnico por quem entende de motor. Tire dúvidas
+                antes, durante e depois da compra.
+              </p>
+            </li>
+
+            <li class="diferencial-card">
+              <div
+                class="diferencial-card__icone"
+                role="img"
+                aria-label="Qualidade"
+              >
+                ⭐
+              </div>
+              <h3 class="diferencial-card__titulo">Peças Testadas</h3>
+              <p class="diferencial-card__texto">
+                Cada peça é inspecionada antes de sair. Zero surpresas na sua
+                oficina ou na estrada.
+              </p>
+            </li>
+          </ul>
+          <!-- fim .diferenciais-grid -->
+        </div>
+        <!-- fim .container -->
+      </section>
+      <!-- fim .diferenciais -->
+
+      <!-- ═══════════════════════════════════════════════════════
+         ELEMENTO 7: DEPOIMENTOS
+         Avaliações reais do Google — prova social qualitativa.
+         Diferente dos números do hero (quantitativa), aqui
+         são histórias reais de clientes reais.
+    ════════════════════════════════════════════════════════ -->
+      <section class="depoimentos" id="depoimentos">
+        <div class="container">
+          <!-- Cabeçalho centralizado — mesmo padrão dos diferenciais -->
+          <div class="secao-header secao-header--centro">
+            <div class="secao-header__texto">
+              <span class="secao-label">Avaliações reais</span>
+              <h2 class="secao-titulo">O que nossos clientes dizem</h2>
+              <p class="secao-subtitulo">
+                Avaliações verificadas diretamente do Google
+              </p>
+            </div>
+          </div>
+
+          <!-- Nota geral do Google: bloco de destaque acima dos cards.
+             Ancora a credibilidade antes de mostrar os depoimentos. -->
+          <div class="depoimentos-nota">
+            <!-- Número grande da nota -->
+            <div class="depoimentos-nota__numero">
+              <strong>4.8</strong>
+              <!-- Estrelas em SVG puro — sem dependência externa.
+                 aria-label descreve para leitores de tela. -->
+              <div class="estrelas" aria-label="4.8 de 5 estrelas">
+                <span aria-hidden="true">★★★★★</span>
+              </div>
+            </div>
+
+            <!-- Divisor vertical -->
+            <div class="depoimentos-nota__divisor" aria-hidden="true"></div>
+
+            <div class="depoimentos-nota__info">
+              <p class="depoimentos-nota__texto">Nota no Google</p>
+              <!-- Link para o perfil real no Google Maps -->
+              <a
+                href="https://g.co/kgs/soberana-autopecas"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="depoimentos-nota__link"
+              >
+                Ver todas as avaliações →
+              </a>
+            </div>
+          </div>
+          <!-- fim .depoimentos-nota -->
+
+          <!-- Grid de depoimentos: 3 colunas no desktop -->
+          <div class="depoimentos-grid">
+            <!-- DEPOIMENTO 1 — Lucia Maldonado (Local Guide) -->
+            <!-- <blockquote>: tag semântica para citação de terceiros.
+               cite: URL ou identificação da fonte original. -->
+            <blockquote class="depoimento-card" cite="https://maps.google.com">
+              <!-- Estrelas individuais do depoimento -->
+              <div class="depoimento-card__estrelas" aria-label="5 estrelas">
+                <span aria-hidden="true">★★★★★</span>
+              </div>
+
+              <!-- Texto da avaliação: entre aspas tipográficas -->
+              <p class="depoimento-card__texto">
+                "Show, tudo de bom, tem tudo e o preço o melhor da concorrência.
+                Só vou lá — até faço cotação para ver o melhor preço, mas é
+                tempo perdido. É lá que tenho o combinado: preço menor com
+                produto melhor."
+              </p>
+
+              <!-- Autor: foto inicial + nome + badge de Local Guide -->
+              <footer class="depoimento-card__autor">
+                <!-- Avatar com inicial do nome — sem precisar de foto real.
+                   data-inicial permite gerar cores diferentes por pessoa. -->
+                <div class="depoimento-card__avatar" aria-hidden="true">L</div>
+
+                <div class="depoimento-card__info">
+                  <strong class="depoimento-card__nome">Lucia Maldonado</strong>
+                  <!-- Local Guide: badge de credibilidade do Google -->
+                  <span class="depoimento-card__badge-google">
+                    <span aria-hidden="true">📍</span> Local Guide · 60
+                    avaliações
+                  </span>
+                </div>
+              </footer>
+            </blockquote>
+            <!-- fim depoimento 1 -->
+
+            <!-- DEPOIMENTO 2 — Wilson Júnior -->
+            <blockquote class="depoimento-card" cite="https://maps.google.com">
+              <div class="depoimento-card__estrelas" aria-label="5 estrelas">
+                <span aria-hidden="true">★★★★★</span>
+              </div>
+              <p class="depoimento-card__texto">
+                "Loja com grande variedade de produtos e excelente preço. Sou de
+                São Paulo, mas sempre que estou na região passo lá, pois sou
+                muito bem atendido e compro com segurança e preço bom."
+              </p>
+              <footer class="depoimento-card__autor">
+                <div class="depoimento-card__avatar" aria-hidden="true">W</div>
+                <div class="depoimento-card__info">
+                  <strong class="depoimento-card__nome">Wilson Júnior</strong>
+                  <span class="depoimento-card__badge-google">
+                    <span aria-hidden="true">📍</span> Local Guide · 23
+                    avaliações
+                  </span>
+                </div>
+              </footer>
+            </blockquote>
+
+            <!-- DEPOIMENTO 3 — Adilson Vieira da Silva -->
+            <blockquote class="depoimento-card" cite="https://maps.google.com">
+              <div class="depoimento-card__estrelas" aria-label="5 estrelas">
+                <span aria-hidden="true">★★★★★</span>
+              </div>
+              <p class="depoimento-card__texto">
+                "Excelente atendimento com ótimos produtos e preços. Uma loja
+                completa que surpreende pela qualidade do serviço e pela
+                variedade do que oferece."
+              </p>
+              <footer class="depoimento-card__autor">
+                <div class="depoimento-card__avatar" aria-hidden="true">A</div>
+                <div class="depoimento-card__info">
+                  <strong class="depoimento-card__nome"
+                    >Adilson Vieira da Silva</strong
+                  >
+                  <span class="depoimento-card__badge-google">
+                    <span aria-hidden="true">📍</span> Local Guide · 405
+                    avaliações
+                  </span>
+                </div>
+              </footer>
+            </blockquote>
+
+            <!-- DEPOIMENTO 4 — João Ferreira Junior -->
+            <blockquote class="depoimento-card" cite="https://maps.google.com">
+              <div class="depoimento-card__estrelas" aria-label="5 estrelas">
+                <span aria-hidden="true">★★★★★</span>
+              </div>
+              <p class="depoimento-card__texto">
+                "Confesso que não conhecia esta autopeças. Fiz algumas pesquisas
+                nas principais da região e achei no Google — para minha
+                surpresa, os melhores preços de todas. Muito impressionante."
+              </p>
+              <footer class="depoimento-card__autor">
+                <div class="depoimento-card__avatar" aria-hidden="true">J</div>
+                <div class="depoimento-card__info">
+                  <strong class="depoimento-card__nome"
+                    >João Ferreira Junior</strong
+                  >
+                  <span class="depoimento-card__badge-google">
+                    <span aria-hidden="true">⭐</span> 14 avaliações
+                  </span>
+                </div>
+              </footer>
+            </blockquote>
+
+            <!-- DEPOIMENTO 5 — Renato NC -->
+            <blockquote class="depoimento-card" cite="https://maps.google.com">
+              <div class="depoimento-card__estrelas" aria-label="5 estrelas">
+                <span aria-hidden="true">★★★★★</span>
+              </div>
+              <p class="depoimento-card__texto">
+                "Sempre sou muito bem atendido lá. Recomendo. O Americano e sua
+                equipe são nota 10!"
+              </p>
+              <footer class="depoimento-card__autor">
+                <div class="depoimento-card__avatar" aria-hidden="true">R</div>
+                <div class="depoimento-card__info">
+                  <strong class="depoimento-card__nome">Renato NC</strong>
+                  <span class="depoimento-card__badge-google">
+                    <span aria-hidden="true">📍</span> Local Guide · 11
+                    avaliações
+                  </span>
+                </div>
+              </footer>
+            </blockquote>
+
+            <!-- DEPOIMENTO 6 — Kennedy Maia -->
+            <blockquote class="depoimento-card" cite="https://maps.google.com">
+              <div class="depoimento-card__estrelas" aria-label="5 estrelas">
+                <span aria-hidden="true">★★★★★</span>
+              </div>
+              <p class="depoimento-card__texto">
+                "Ótimo atendimento pelo vendedor Vitor, achei as peças mais
+                baratas que outras lojas. Recomendo muito para quem busca
+                qualidade e preço justo."
+              </p>
+              <footer class="depoimento-card__autor">
+                <div class="depoimento-card__avatar" aria-hidden="true">K</div>
+                <div class="depoimento-card__info">
+                  <strong class="depoimento-card__nome">Kennedy Maia</strong>
+                  <span class="depoimento-card__badge-google">
+                    <span aria-hidden="true">📍</span> Local Guide · 247
+                    avaliações
+                  </span>
+                </div>
+              </footer>
+            </blockquote>
+          </div>
+          <!-- fim .depoimentos-grid -->
+        </div>
+        <!-- fim .container -->
+      </section>
+      <!-- fim .depoimentos -->
+
+      <!-- ═══════════════════════════════════════════════════════
+         ELEMENTO 8: GALERIA DE FOTOS
+         Carrossel de fotos da loja — puro HTML/CSS/JS.
+         Sem biblioteca externa. A faixa de slides desliza
+         horizontalmente via transform: translateX().
+    ════════════════════════════════════════════════════════ -->
+      <section class="galeria" id="galeria" aria-label="Fotos da loja">
+        <div class="container">
+          <div class="secao-header secao-header--centro">
+            <div class="secao-header__texto">
+              <span class="secao-label">Nossa estrutura</span>
+              <h2 class="secao-titulo">Conheça a Soberana</h2>
+              <p class="secao-subtitulo">
+                Estrutura completa para atender sua oficina e frota
+              </p>
+            </div>
+          </div>
+
+          <!-- CARROSSEL -->
+          <div
+            class="carrossel"
+            id="carrossel"
+            role="region"
+            aria-roledescription="carrossel"
+          > 
+          <!-- Wrapper que aplica overflow:hidden e a sombra de imersão -->
+          <div class="carrossel__faixa-wrapper">
+            <!-- Faixa que desliza — contém todos os slides -->
+            <div class="carrossel__faixa" id="carrosselFaixa">
+              <!-- Cada slide é um <figure>: tag semântica para imagem + legenda -->
+              <figure class="carrossel__slide" aria-label="Foto 1 de 5">
+                <img
+                  src="images/loja-fachada.jpg"
+                  alt="Fachada da Soberana Autopeças"
+                  class="carrossel__img"
+                >
+                <figcaption class="carrossel__legenda">
+                  Fachada da Soberana Autopeças
+                </figcaption>
+              </figure>
+
+              <figure class="carrossel__slide" aria-label="Foto 2 de 5">
+                <img
+                  src="images/loja-estoque-motores.jpg"
+                  alt="Estoque de motores revisados"
+                  class="carrossel__img"
+                >
+                <figcaption class="carrossel__legenda">
+                  Estoque de motores revisados
+                </figcaption>
+              </figure>
+
+              <figure class="carrossel__slide" aria-label="Foto 3 de 5">
+                <img 
+                  src="images/loja-oficina.jpg"
+                  alt="Área de retífica e usinagem"
+                  class="carrossel__img"
+                >
+                <figcaption class="carrossel__legenda">
+                  Área de retífica e usinagem
+                </figcaption>
+              </figure>
+
+              <figure class="carrossel__slide" aria-label="Foto 4 de 5">
+                <img  
+                  src="images/loja-estoque-pecas.jpg"
+                  alt="Estoque com mais de 2.000 peças"
+                  class="carrossel__img"
+                >
+                <figcaption class="carrossel__legenda">
+                  Estoque com +2.000 peças
+                </figcaption>
+              </figure>
+
+              <figure class="carrossel__slide" aria-label="Foto 5 de 5">
+                <img 
+                  src="images/loja-atendimento.jpg"
+                  alt="Equipe de atendimento especializado"
+                  class="carrossel__img"
+                >
+                <figcaption class="carrossel__legenda">
+                  Equipe de atendimento especializado
+                </figcaption>
+              </figure>
+            </div>
+            <!-- fim .carrossel__faixa -->
+
+            <!-- Botões de navegação: anterior e próximo -->
+            <button
+              class="carrossel__btn carrossel__btn--prev"
+              id="carrosselPrev"
+              aria-label="Foto anterior"
+            >
+              ‹
+            </button>
+
+            <button
+              class="carrossel__btn carrossel__btn--next"
+              id="carrosselNext"
+              aria-label="Próxima foto"
+            >
+              ›
+            </button>
+
+            <!-- Indicadores (bolinhas): mostram qual slide está ativo -->
+            <div
+              class="carrossel__indicadores"
+              id="carrosselIndicadores"
+              role="tablist"
+            >
+              <!-- Gerados pelo JavaScript -->
+            </div>
+          </div><!-- fim .carrossel__faixa-wrapper-->
+          <!-- fim .carrossel -->
+          </div>
+        </div>
+        <!-- fim .container -->
+      </section>
+      <!-- fim .galeria -->
+
+      <!-- ═══════════════════════════════════════════════════════
+         ELEMENTO 9: LOCALIZAÇÃO
+         Seção com mapa interativo do Google Maps.
+         Usa iframe embed — gratuito, sem chave de API.
+         O visitante vê o endereço e pode traçar rota direto
+         pelo link "Ver mapa maior" gerado pelo Google.
+    ════════════════════════════════════════════════════════ -->
+      <section
+        class="localizacao"
+        id="localizacao"
+        aria-label="Nossa localização"
+      >
+        <div class="container">
+          <!-- Cabeçalho da seção — mesmo padrão visual das outras -->
+          <div class="secao-header secao-header--centro">
+            <div class="secao-header__texto">
+              <span class="secao-label">Onde estamos</span>
+              <h2 class="secao-titulo">Nossa Localização</h2>
+              <p class="secao-subtitulo">
+                Venha nos visitar ou use o mapa para traçar sua rota
+              </p>
+            </div>
+          </div>
+
+          <!-- Layout: mapa à esquerda, informações à direita -->
+          <div class="localizacao__inner">
+            <!-- MAPA: iframe do Google Maps Embed.
+                A URL usa o endereço codificado para localizar a loja.
+                title: obrigatório para acessibilidade — descreve o iframe.
+                loading="lazy": o mapa só carrega quando o visitante
+                rolar até ele — melhora a performance da página. -->
+            <div class="localizacao__mapa">
+              <iframe
+                title="Localização da Soberana Autopeças no Google Maps"
+                src="https://maps.google.com/maps?q=Av.+Sete+de+Setembro,+5,+Aterrado,+Volta+Redonda,+RJ&output=embed&z=16"
+                width="100%"
+                height="100%"
+                class="localizacao__iframe"
+                allowfullscreen=""
+              >
+              </iframe>
+            </div>
+
+            <!-- INFORMAÇÕES: endereço + horário + botão de rota -->
+            <div class="localizacao__info">
+              <div class="localizacao__bloco">
+                <div class="localizacao__icone" aria-hidden="true">📍</div>
+                <div>
+                  <h3 class="localizacao__titulo-bloco">Endereço</h3>
+                  <address class="localizacao__endereco">
+                    Av. Sete de Setembro, 5<br />
+                    Aterrado, Volta Redonda - RJ<br />
+                    CEP: 27213-250
+                  </address>
+                </div>
+              </div>
+
+              <div class="localizacao__bloco">
+                <div class="localizacao__icone" aria-hidden="true">🕐</div>
+                <div>
+                  <h3 class="localizacao__titulo-bloco">
+                    Horário de Atendimento
+                  </h3>
+                  <ul class="localizacao__horarios">
+                    <li>
+                      <span>Segunda a Sexta</span>
+                      <strong>08:00 – 18:00</strong>
+                    </li>
+                    <li>
+                      <span>Sábado</span>
+                      <strong>08:00 – 12:00</strong>
+                    </li>
+                    <li>
+                      <span>Domingo</span>
+                      <strong class="localizacao__fechado">Fechado</strong>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="localizacao__bloco">
+                <div class="localizacao__icone" aria-hidden="true">📞</div>
+                <div>
+                  <h3 class="localizacao__titulo-bloco">Fale Conosco</h3>
+                  <div class="localizacao__contatos">
+
+                    <a href="tel:+552433471440" 
+                      class="localizacao__telefone">
+                      (24) 3347-1440
+                    </a>
+
+                    <a href="https://wa.me/552433471440"
+                      class="localizacao__whatsapp"
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      <img src="images/whatsapp_icon.png"
+                          alt="Ícone do WhatsApp"
+                          class="localizacao__whatsapp-icon">
+                      WhatsApp
+                    </a>
+
+                  </div>
+                </div>
+              </div>
+
+              <!-- Botão que abre o Google Maps para traçar rota -->
+              <a
+                href="https://www.google.com/maps/dir/?api=1&destination=Av.+Sete+de+Setembro,+5,+Aterrado,+Volta+Redonda,+RJ"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-primario localizacao__btn-rota"
+              >
+                <span aria-hidden="true">🗺️</span>
+                Traçar Rota no Google Maps
+              </a>
+            </div>
+            <!-- fim .localizacao__info -->
+          </div>
+          <!-- fim .localizacao__inner -->
+        </div>
+        <!-- fim .container -->
+      </section>
+      <!-- fim .localizacao -->
+
+      <!-- ═══════════════════════════════════════════════════════
+         ELEMENTO 10: CTA FINAL
+         Última chamada para ação antes do footer.
+         Visitantes que chegaram até aqui já leram tudo —
+         são os mais propensos a converter. Não os deixe
+         sem uma ação clara na frente.
+    ════════════════════════════════════════════════════════ -->
+      <section class="cta-final" aria-labelledby="cta-titulo">
+        <div class="container cta-final__inner">
+          <!-- Decoração: círculo de brilho no fundo (via CSS ::before) -->
+
+          <!-- Conteúdo centralizado -->
+          <div class="cta-final__conteudo">
+            <span class="cta-final__badge">
+              <span aria-hidden="true">⚡</span>
+              Atendimento rápido e sem burocracia
+            </span>
+
+            <!-- id="cta-titulo" referenciado no aria-labelledby da section.
+               Isso diz ao leitor de tela qual é o título desta região. -->
+            <h2 class="cta-final__titulo" id="cta-titulo">
+              Pronto para encontrar<br />
+              <span>a peça certa?</span>
+            </h2>
+
+            <p class="cta-final__subtitulo">
+              Fale com a nossa equipe agora mesmo ou navegue pelo catálogo
+              completo. Entrega para todo o Brasil.
+            </p>
+
+            <div class="cta-final__acoes">
+              <a href="/catalogo" class="btn btn-destaque">
+                <span aria-hidden="true">🔩</span>
+                Ver Catálogo Completo
+              </a>
+
+              <a
+                href="https://wa.me/552433471440"
+                class="btn btn-outline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span aria-hidden="true">💬</span>
+                Falar no WhatsApp
+              </a>
+            </div>
+          </div>
+          <!-- fim .cta-final__conteudo -->
+        </div>
+        <!-- fim .cta-final__inner -->
+      </section>
+      <!-- fim .cta-final -->
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <!-- COLUNA 1: Identidade da empresa -->
+        <div class="footer__coluna footer__coluna--marca">
+          <a
+            href="/"
+            class="footer__logo"
+            aria-label="Soberana Autopeças - Página inicial"
+          >
+            <div class="footer__logo-icon" aria-hidden="true">⚙️</div>
+            <div class="footer__logo-text">
+              <span class="footer__logo-nome">Soberana</span>
+              <span class="footer__logo-sub">Autopeças</span>
+            </div>
+          </a>
+
+          <p class="footer__descricao">
+            Especialistas em motores revisados, cabeçotes usinados e kits de
+            retífica desde 2005. Qualidade e procedência garantidas.
+          </p>
+        </div>
+
+        <!-- COLUNA 2: Navegação -->
+        <div class="footer__coluna">
+          <h3 class="footer__titulo-coluna">Navegação</h3>
+          <nav aria-label="Rodapé — navegação">
+            <ul class="footer__lista">
+              <li><a href="/" class="footer__link">Início</a></li>
+              <li><a href="/catalogo" class="footer__link">Catálogo</a></li>
+              <li><a href="/contato" class="footer__link">Contato</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- COLUNA 3: Contato -->
+        <div class="footer__coluna">
+          <h3 class="footer__titulo-coluna">Contato</h3>
+          <ul class="footer__lista footer__lista--contato">
+            <li class="footer__item-contato">
+              <span class="footer__icone" aria-hidden="true">📍</span>
+              <address class="footer__endereco">
+                Av. Sete de Setembro, 5<br />
+                Aterrado, Volta Redonda - RJ<br />
+                CEP: 27213-250
+              </address>
+            </li>
+
+            <li class="footer__item-contato">
+              <span class="footer__icone" aria-hidden="true">📞</span>
+              <!-- tel: remove formatação e discagem direta no celular -->
+              <a href="tel:+552433471440" class="footer__link"
+                >(24) 3347-1440</a
+              >
+            </li>
+
+            <li class="footer__item-contato">
+              <span class="footer__icone" aria-hidden="true">💬</span>
+              <a
+                href="https://wa.me/552433471440"
+                class="footer__link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                WhatsApp
+              </a>
+            </li>
+
+            <li class="footer__item-contato">
+              <span class="footer__icone" aria-hidden="true">✉️</span>
+              <a href="mailto:soberanacar@live.com" class="footer__link">
+                soberanacar@live.com
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- COLUNA 4: Horário -->
+        <div class="footer__coluna">
+          <h3 class="footer__titulo-coluna">Horário de Atendimento</h3>
+          <ul class="footer__lista footer__lista--horario">
+            <li class="footer__horario-item">
+              <span class="footer__horario-dia">Segunda a Sexta</span>
+              <span class="footer__horario-hora">08:00 – 18:00</span>
+            </li>
+
+            <li class="footer__horario-item">
+              <span class="footer__horario-dia">Sábado</span>
+              <span class="footer__horario-hora">08:00 – 12:00</span>
+            </li>
+
+            <li class="footer__horario-item">
+              <span class="footer__horario-dia">Domingo</span>
+              <span class="footer__horario-fechado">Fechado</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- fim .footer__inner -->
+
+      <!-- Barra inferior: copyright -->
+      <div class="footer__barra">
+        <div class="container">
+          <p class="footer__copyright">
+            <!-- &copy; é a entidade HTML para o símbolo © -->
+            &copy; 2025 Soberana Autopeças. Todos os direitos reservados.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts no final do <body>: quando o browser chega aqui,
+       todo o HTML já foi lido e os elementos existem no DOM.
+       Se colocássemos no <head>, o JS não encontraria os elementos.
+       Ordem: utils primeiro (funções base) → header → index -->
+    <script src="js/utils.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/index.js"></script>
+  </body>
+</html>
