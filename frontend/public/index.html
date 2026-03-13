@@ -792,6 +792,149 @@
       </section>
       <!-- fim .catalogo -->
 
+       <!-- ═══════════════════════════════════════════════════════
+         OFERTAS: Carrossel de kits promocionais por modelo.
+         Layout editorial: carro à esquerda, kits à direita.
+    ════════════════════════════════════════════════════════ -->
+    <section class="ofertas" id="ofertas" aria-label="Ofertas especiais">
+      <div class="container">
+
+        <div class="secao-header">
+          <div class="secao-header__texto">
+            <span class="secao-label secao-label--destaque">Ofertas especiais</span>
+            <h2 class="secao-titulo">Balcão de Peças</h2>
+            <p class="secao-subtitulo">Kits completos por modelo com preço de balcão</p>
+          </div>
+        </div>
+
+        <!-- Carrossel de ofertas -->
+        <div class="ofertas__carrossel" id="ofertasCarrossel">
+          <div class="ofertas__faixa" id="ofertasFaixa">
+
+            <!-- SLIDE 1 — FORD KA 2020 -->
+            <div class="ofertas__slide" style="--cor-destaque: #FF6B00;">
+
+              <!-- Lado esquerdo: identidade do veículo -->
+              <div class="ofertas__veiculo">
+                <div class="ofertas__veiculo-info">
+                  <span class="ofertas__badge">Ofertas</span>
+                  <h3 class="ofertas__veiculo-nome">Ford Ka</h3>
+                  <p class="ofertas__veiculo-ano">2020</p>
+                </div>
+                <img src="images/ofertas/ford-ka-2020.png"
+                     alt="Ford Ka 2020"
+                     class="ofertas__veiculo-img">
+                <p class="ofertas__nota">*Imagens meramente ilustrativas.</p>
+              </div>
+
+              <!-- Lado direito: kits em oferta -->
+              <div class="ofertas__kits">
+
+                <div class="ofertas__kit">
+                  <div class="ofertas__kit-img-wrapper">
+                    <img src="images/ofertas/kit-revisao-ka.png"
+                         alt="Kit Revisão Ford Ka"
+                         class="ofertas__kit-img">
+                  </div>
+                  <div class="ofertas__kit-conteudo">
+                    <h4 class="ofertas__kit-titulo">Kit Revisão Completo</h4>
+                    <ul class="ofertas__kit-itens">
+                      <li>4L de Óleo</li>
+                      <li>Filtro de Óleo</li>
+                      <li>Filtro de Combustível</li>
+                      <li>Filtro de Ar</li>
+                      <li>Reservatório com Tampa</li>
+                      <li>3L de Aditivo</li>
+                      <li>2L de Água Desmineralizada</li>
+                      <li>Velas + Cabos de Vela</li>
+                      <li>Pastilhas de Freio</li>
+                    </ul>
+                  </div>
+                  <div class="ofertas__kit-preco">
+                    <span class="ofertas__preco-de">de R$ 847,90</span>
+                    <div class="ofertas__preco-por-grupo">
+                      <span class="ofertas__preco-label">por</span>
+                      <strong class="ofertas__preco-por">R$ 655,20</strong>
+                    </div>
+                    <a href="/contato" class="ofertas__cta">Pedir agora</a>
+                  </div>
+                </div>
+
+              </div><!-- fim .ofertas__kits -->
+
+            </div><!-- fim .ofertas__slide -->
+
+            <!-- SLIDE 2 — FORD KA 2020 -->
+            <div class="ofertas__slide" style="--cor-destaque: #FF6B00;">
+
+              <!-- Lado esquerdo: identidade do veículo -->
+              <div class="ofertas__veiculo">
+                <div class="ofertas__veiculo-info">
+                  <span class="ofertas__badge">Ofertas</span>
+                  <h3 class="ofertas__veiculo-nome">Ford Ka</h3>
+                  <p class="ofertas__veiculo-ano">2020</p>
+                </div>
+                <img src="images/ofertas/ford-ka-2020.png"
+                     alt="Ford Ka 2020"
+                     class="ofertas__veiculo-img">
+                <p class="ofertas__nota">*Imagens meramente ilustrativas.</p>
+              </div>
+
+              <!-- Lado direito: kits em oferta -->
+              <div class="ofertas__kits">
+
+                <div class="ofertas__kit">
+                  <div class="ofertas__kit-img-wrapper">
+                    <img src="images/ofertas/kit-revisao-ka.png"
+                         alt="Kit Revisão Ford Ka"
+                         class="ofertas__kit-img">
+                  </div>
+                  <div class="ofertas__kit-conteudo">
+                    <h4 class="ofertas__kit-titulo">Kit Revisão Completo</h4>
+                    <ul class="ofertas__kit-itens">
+                      <li>4L de Óleo</li>
+                      <li>Filtro de Óleo</li>
+                      <li>Filtro de Combustível</li>
+                      <li>Filtro de Ar</li>
+                      <li>Reservatório com Tampa</li>
+                      <li>3L de Aditivo</li>
+                      <li>2L de Água Desmineralizada</li>
+                      <li>Velas + Cabos de Vela</li>
+                      <li>Pastilhas de Freio</li>
+                    </ul>
+                  </div>
+                  <div class="ofertas__kit-preco">
+                    <span class="ofertas__preco-de">de R$ 847,90</span>
+                    <div class="ofertas__preco-por-grupo">
+                      <span class="ofertas__preco-label">por</span>
+                      <strong class="ofertas__preco-por">R$ 655,20</strong>
+                    </div>
+                    <a href="/contato" class="ofertas__cta">Pedir agora</a>
+                  </div>
+                </div>
+
+              </div><!-- fim .ofertas__kits -->
+
+            </div><!-- fim .ofertas__slide -->
+
+          </div><!-- fim .ofertas__faixa -->
+
+          <!-- Botões de navegação -->
+          <button class="ofertas__btn ofertas__btn--prev"
+                  id="ofertasPrev"
+                  aria-label="Oferta anterior">‹</button>
+          <button class="ofertas__btn ofertas__btn--next"
+                  id="ofertasNext"
+                  aria-label="Próxima oferta">›</button>
+
+          <!-- Indicadores -->
+          <div class="ofertas__indicadores" id="ofertasIndicadores"></div>
+
+        </div><!-- fim .ofertas__carrossel -->
+
+      </div><!-- fim .container -->
+    </section><!-- fim .ofertas -->
+
       <!-- ═══════════════════════════════════════════════════════
          ELEMENTO 6: DIFERENCIAIS
          Seção escura — alterna o ritmo visual após o catálogo claro.

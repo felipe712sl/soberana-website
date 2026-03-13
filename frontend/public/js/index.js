@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
      inicializarFormulario();  */
   inicializarTituloDinamico();
   inicializarParceiros();
+  inicializarOfertas();
 });
 
 /* ── CARROSSEL ─────────────────────────────────────────────────
@@ -215,4 +216,45 @@ function inicializarParceiros() {
 
   irPara(0);
   iniciarAutoAvancar();
+}
+
+/* ── OFERTAS ── */
+function inicializarOfertas() {
+
+  const faixa       = document.getElementById('ofertasFaixa');
+  const btnPrev     = document.getElementById('ofertasPrev');
+  const btnNext     = document.getElementById('ofertasNext');
+  const indicadores = document.getElementById('ofertasIndicadores');
+
+  if (!faixa || !btnPrev || !btnNext || !indicadores) return;
+
+  const slides = faixa.querySelectorAll('.ofertas__slide');
+  const total  = slides.length;
+  let atual    = 0;
+  let timer;
+
+  slides.forEach((_, i) => {
+    const t = document.createElement('button');
+    t.classList.add('ofertas__indicador');
+    t.setAttribute('aria-label', `Ver oferta ${i + 1}`);
+    t.addEventListener('click', () => { irPara(i); reiniciar(); });
+    indicadores.appendChild(t);
+  });
+
+  function irPara(indice) {
+    atual = (indice + total) % total;
+    faixa.style.transform = `translateX(-${atual * 100}%)`;
+    indicadores.querySelectorAll('.ofertas__indicador').forEach((t, i) => {
+      t.classList.toggle('ativo', i === atual);
+    });
+  }
+
+  btnPrev.addEventListener('click', () => { irPara(atual - 1); reiniciar(); });
+  btnNext.addEventListener('click', () => { irPara(atual + 1); reiniciar(); });
+
+  function iniciar() { timer = setInterval(() => irPara(atual + 1), 6000); }
+  function reiniciar() { clearInterval(timer); iniciar(); }
+
+  irPara(0);
+  iniciar();
 }
